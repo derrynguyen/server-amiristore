@@ -13,7 +13,7 @@ $connect = $db->connect();
 // Parse the request body as JSON
 $data = json_decode( file_get_contents( 'php://input' ), true );
 
-$name = $data[ 'username' ];
+$fullname = $data[ 'username' ];
 $email = $data[ 'email' ];
 $password = $data[ 'password' ];
 $phone = $data[ 'phone' ];
@@ -22,11 +22,10 @@ $sex = $data[ 'sex' ];
 $role = $data[ 'role' ];
 $avatar = $data[ 'avatar' ];
 $point = $data[ 'point' ];
-$amount_order = $data[ 'amount_order' ];
 // $check = $data[ 'checked' ];
 
 ///Hàm kiểm tra tồn tại
-if ( empty( $name ) ) {
+if ( empty( $fullname ) ) {
     header( 'Content-Type: application/json' );
     echo json_encode( array( 'error' => 'Vui lòng điền đầy đủ tên tài khoản' ) );
     exit();
@@ -85,9 +84,9 @@ if ( $count > 0 ) {
 $hashed_password = password_hash( $password, PASSWORD_DEFAULT );
 
 ///Hảm tạo tài khoản
-$stmt = $connect->prepare( 'INSERT INTO account (name, email, password,phone,addreas,sex,role,avatar,point,amount_order) VALUES (:name, :email, :password,:phone,:addreas,:sex,:role, :avatar,:point,:amount_order )' );
+$stmt = $connect->prepare( 'INSERT INTO account (fullname, email, password,phone,addreas,sex,role,avatar,point) VALUES (:fullname, :email, :password,:phone,:addreas,:sex,:role, :avatar,:point )' );
 $stmt->execute( array(
-    ':name' => $name,
+    ':fullname' => $fullname,
     ':email' => $email,
     ':password' => $hashed_password,
     ':phone' => $phone,
@@ -96,7 +95,6 @@ $stmt->execute( array(
     ':role' => $role,
     ':avatar' => $avatar,
     ':point' => $point,
-    ':amount_order' => $amount_order,
 
 ) );
 

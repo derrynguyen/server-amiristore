@@ -28,4 +28,3 @@ if ( $stmt->execute() ) {
 } else {
     http_response_code( 400 );
 }
-

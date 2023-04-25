@@ -63,12 +63,16 @@ $upload_dir = 'D:/xampp/htdocs/inc/src/images/items/';
 $image_name = $_FILES[ 'img' ][ 'name' ];
 $image_temp = $_FILES[ 'img' ][ 'tmp_name' ];
 $image_type = $_FILES[ 'img' ][ 'type' ];
+$image_size = $_FILES['img']['size'];
 
 if ( $image_type !== 'image/jpeg' && $image_type !== 'image/png' ) {
     http_response_code( 400 );
     die( json_encode( [ 'error' => 'Chỉ cho phép dạng .png và .jpeg.' ] ) );
 }
-
+if ($image_size > 1000000) {
+    echo json_encode(['error' => 'Kích thước ảnh vượt quá giới hạn cho phép.']);
+    exit();
+}
 if ( !move_uploaded_file( $image_temp, $upload_dir . $image_name ) ) {
     http_response_code( 400 );
     die( json_encode( [ 'error' => 'Upload ảnh thất bại.' ] ) );

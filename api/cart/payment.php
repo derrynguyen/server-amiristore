@@ -12,10 +12,8 @@ $connect = $db->connect();
 $data = json_decode(file_get_contents("php://input"), true);
 
 $id_user = $data['getIDUser'];
-$total = 0;
-$orders = json_decode($data['orders'], true);
+$orders = isset($data['orders']) ? json_decode($data['orders'], true) : null; // Thêm điều kiện kiểm tra cho $orders
 
-$status = 'Đang chờ xác nhận';
 
 if (empty($id_user) || empty($orders)) {
     echo json_encode(array('error' => 'ID user rỗng hoặc không có sản phẩm trong giỏ hàng'));
@@ -30,6 +28,7 @@ try {
 
     foreach ($orders as $order) {
         $total = $order['amount'] * $order['price'];
+        $status = 1;
 
         $stmt->bindParam(':id_user', $id_user);
         $stmt->bindParam(':name_brand', $order['name_brand']);

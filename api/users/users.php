@@ -1,6 +1,8 @@
 <?php
 header( 'Content-type: text/plain; charset=utf-8' );
-header( 'Access-Control-Allow-Origin:*' );
+header('Access-Control-Allow-Origin: http://localhost:3000');
+header('Access-Control-Allow-Headers: Authorization, Content-Type');
+
 header( 'Content-Type: text/html; charset=UTF-8' );
 
 include_once( '../../config/db.php' );
@@ -24,7 +26,7 @@ if ( $num>0 ) {
         $users_item = array(
 
             'id'=> $id,
-            'name'=> $name,
+            'fullname'=> $fullname,
             'email'=> $email,
             'password'=> $password,
             'avatar'=> $avatar,
@@ -32,7 +34,6 @@ if ( $num>0 ) {
             'addreas'=> $addreas,
             'sex'=> $sex,
             'point'=> $point,
-            'amount_order'=> $amount_order,
             'role'=> $role,
 
         );

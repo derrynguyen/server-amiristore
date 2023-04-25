@@ -33,7 +33,7 @@ if ( $amount == null ) {
 $stmt = $connect->prepare( 'INSERT INTO orders (id_user, name_brand,name,img,price,color,session,size,amount) 
 VALUES (:id_user, :name_brand,:name,:img,:price,:color,:session,:size,:amount)' );
 $stmt->bindParam( ':id_user', $_POST[ 'id_user' ] );
-$stmt->bindParam( ':name_brand', $_POST[ 'name' ] );
+$stmt->bindParam( ':name_brand', $_POST[ 'name_brand' ] );
 $stmt->bindParam( ':name', $name );
 $stmt->bindParam( ':img', $_POST[ 'img' ] );
 $stmt->bindParam( ':price', $_POST[ 'price' ] );

@@ -43,13 +43,12 @@ if ( password_verify( $password, $user[ 'password' ] ) ) {
 
     $_SESSION[ 'id' ] = array(
         'id' => $user[ 'id' ],
-        'name' => $user[ 'name' ],
+        'fullname' => $user[ 'fullname' ],
         'email' => $user[ 'email' ],
         'phone' => $user[ 'phone' ],
         'addreas' => $user[ 'addreas' ],
         'sex' => $user[ 'sex' ],
         'point' => $user[ 'point' ],
-        'amount_order' => $user[ 'amount_order' ],
         'role' => $user[ 'role' ],
         'avatar' => $user[ 'avatar' ],
 

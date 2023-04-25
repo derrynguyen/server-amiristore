@@ -4,7 +4,7 @@ header( 'Access-Control-Allow-Origin:*' );
 header( 'Content-Type: application/json' );
 
 include_once( '../../config/db.php' );
-include_once( '../../model/order.php' );
+include_once( '../../model/payment.php' );
 
 $db = new db();
 $connect = $db->connect();
@@ -12,8 +12,8 @@ $connect = $db->connect();
 if ( isset( $_GET[ 'getIDUser' ] ) ) {
     $id = $_GET[ 'getIDUser' ];
 
-    $order = new Order( $connect );
-    $read = $order->read( $id );
+    $payment = new Payment( $connect );
+    $read = $payment->read( $id );
 
     $num = $read->rowCount();
 
@@ -35,6 +35,8 @@ if ( isset( $_GET[ 'getIDUser' ] ) ) {
                 'session' => $session,
                 'size' => $size,
                 'amount' => $amount,
+                'total'=>$total,
+                'status'=>$status,
             );
 
             array_push( $products_array[ 'data' ], $products_item );
@@ -42,7 +44,7 @@ if ( isset( $_GET[ 'getIDUser' ] ) ) {
 
         echo json_encode( $products_array, JSON_UNESCAPED_UNICODE );
     } else {
-        echo json_encode( array( 'message' => 'No products found.' ) );
+        echo json_encode( array( 'message' => 'No payment found.' ) );
     }
 } else {
     echo json_encode( array( 'message' => 'getIDUser parameter is missing.' ) );
